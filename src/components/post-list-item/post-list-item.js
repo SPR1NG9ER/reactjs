@@ -2,58 +2,38 @@ import React, { Component } from 'react';
 import './post-list-item.css'
 
 export default class PostListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            important: false,
-            like: false
-        };
-        this.onImportant = this.onImportant.bind(this);
-        this.onLike = this.onLike.bind(this);
-    }
 
-    onImportant(){
-        this.setState(({important}) => ({
-            important: !important
-        }))
-    }
-
-    onLike(){
-        this.setState(({like}) => ({
-            like: !like
-        }))
-    }
-    render(){
-        const {label} = this.props;
-        const {important, like} = this.state;
+    render() {
+        const { label, onDelete, onToggleImportant, onToggleLiked, important, like } = this.props;
         let classNames = "app-list-item d-flex justify-content-between";
-        if (important){
+        if (important) {
             classNames += ' important'
         }
 
-        if (like){
+        if (like) {
             classNames += ' like'
         }
-        return(
+        return (
             <div className={classNames}>
-                <span onClick={this.onLike} className="app-list-item-label">
-                {label}
+                <span onClick={onToggleLiked} className="app-list-item-label">
+                    {label}
                 </span>
                 <div className="d-flex justify-content-center align-items-center">
-                    <button 
-                    type="submit" 
-                    className="btn-star btn-sm"
-                    onClick={this.onImportant}>
+                    <button
+                        type="submit"
+                        className="btn-star btn-sm"
+                        onClick={onToggleImportant}>
                         <i className="fa fa-star"></i>
                     </button>
-                    <button 
-                    type="submit" 
-                    className="btn-trash btn-sm">
+                    <button
+                        type="submit"
+                        className="btn-trash btn-sm"
+                        onClick={onDelete}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                     <i className="fa fa-heart"></i>
                 </div>
-        </div>
+            </div>
         )
     }
 }
